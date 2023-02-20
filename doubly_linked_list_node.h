@@ -1,5 +1,6 @@
 #ifndef DOUBLY_LINKED_LIST_NODE_H_INCLUDED
 #define DOUBLY_LINKED_LIST_NODE_H_INCLUDED
+#include <stdbool.h>
 #define t_elem int
 
 typedef struct _dll_node{
@@ -14,6 +15,8 @@ void dll_node_free(dll_node_t** node);
 
 t_elem dll_node_get_value(dll_node_t* node);
 
+void dll_node_set_value(dll_node_t** node,t_elem element);
+
 dll_node_t* dll_node_get_prev(dll_node_t* node);
 
 dll_node_t* dll_node_get_next(dll_node_t* node);
@@ -22,7 +25,7 @@ dll_node_t** dll_node_get_prev_reference(dll_node_t* node);
 
 dll_node_t** dll_node_get_next_reference(dll_node_t* node);
 
-int dll_node_link_node(dll_node_t** origin,dll_node_t** destiny);
+bool dll_node_link_node(dll_node_t** origin,dll_node_t** destiny);
 
 void dll_node_add_node_end(dll_node_t** head,dll_node_t** new_node);
 

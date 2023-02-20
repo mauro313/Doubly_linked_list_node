@@ -12,7 +12,8 @@ dll_node_t** dll_node_merge_sorted(dll_node_t** head_1,dll_node_t** head_2,int (
 
 int main(void){
   srand(time(NULL));
-  //creo dos listas doblemente enlazadas y las imprimo
+  
+  //creation of two list of sorted doubly linked nodes.
   dll_node_t* head = list_int_sort(10);
   dll_node_printf_all(head,print_int);
   printf("\n\n");
@@ -20,7 +21,7 @@ int main(void){
   dll_node_printf_all(head_2,print_int);
   printf("\n\n");
   
-  //combino ambas listas e imprimo
+  //merge both list in a new one.
   dll_node_t** head_3 = dll_node_merge_sorted(&head,&head_2,compare_int);
   dll_node_printf_all(*head_3,print_int);
   
@@ -29,8 +30,14 @@ int main(void){
   return 0;    
 }
 
-//*********************ejemplos de procedimientos y funciones de la implementacion***************************//
+//*********************EXAMPLES OF PRECEDURES AND FUNTIONS TO TEST THE IMPLEMENTATION***************************//
 
+/**
+ * @brief creation of a list of sorted doubly linked nodes.
+ * 
+ * @param amount 
+ * @return dll_node_t* 
+ */
 dll_node_t* list_int_sort(int amount){
   dll_node_t* head = NULL;
   for(int i=0;i<amount;i++){
@@ -39,15 +46,31 @@ dll_node_t* list_int_sort(int amount){
   return head;
 }
 
+/**
+ * @brief auxiliar print procedure.
+ * 
+ * @param value 
+ */
 void print_int(t_elem value){
   printf(" %i ",value);  
 }
 
+/**
+ * @brief auxiliar compare procedure.
+ * 
+ * @param value_1 
+ * @param value_2 
+ * @return int 
+ */
 int compare_int(t_elem value_1,t_elem value_2){
   return value_1-value_2;   
 }
 
-// procedimiento para eliminar todos los nodos de una lista 
+/**
+ * @brief procedure to delete and free memory of all the nodes of a list.
+ * 
+ * @param head 
+ */
 void dll_node_delete_all(dll_node_t** head){
   if(*head != NULL){
     dll_node_delete_all(&(*head)->next);  
@@ -57,7 +80,13 @@ void dll_node_delete_all(dll_node_t** head){
   }    
 }
 
-//procedimiento para insertar nodos de forma ordenada en una lista doblemente enlazada
+/**
+ * @brief procedure for the sorted insertion of a doubly linked node in a list.
+ * 
+ * @param head 
+ * @param value 
+ * @param compare 
+ */
 void dll_node_insert_sorted(dll_node_t** head,t_elem value,int (*compare)(t_elem,t_elem)){
   if(head == NULL){
     return;  
@@ -87,7 +116,14 @@ void dll_node_insert_sorted(dll_node_t** head,t_elem value,int (*compare)(t_elem
   }
 }
 
-//funcion para fusionar dos listas doblemente enlazadas
+/**
+ * @brief merge two list of sorted doubly linked nodes.
+ * 
+ * @param head_1 
+ * @param head_2 
+ * @param compare 
+ * @return dll_node_t** 
+ */
 dll_node_t** dll_node_merge_sorted(dll_node_t** head_1,dll_node_t** head_2,int (*compare)(t_elem,t_elem)){
   dll_node_t** returned = NULL;
   if(*head_2 == NULL){

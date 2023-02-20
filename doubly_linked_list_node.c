@@ -2,12 +2,17 @@
 #include <stdio.h>
 #include "doubly_linked_list_node.h"
 
-// crear un nodo nuevo
+/**
+ * @brief create a new node.
+ * 
+ * @param value 
+ * @return dll_node_t* 
+ */
 dll_node_t* dll_node_new(t_elem value){
   dll_node_t* new_node = (dll_node_t*)malloc(sizeof(dll_node_t));
   if(new_node == NULL){
     printf("memory cannot be reserved for a new dll_node");
-    exit(-1);
+    exit(EXIT_FAILURE);
   }
   new_node->value = value;
   new_node->prev = NULL;
@@ -15,7 +20,11 @@ dll_node_t* dll_node_new(t_elem value){
   return new_node;
 }
 
-//liberar memoria de un nodo
+/**
+ * @brief free the memory of a node.
+ * 
+ * @param node 
+ */
 void dll_node_free(dll_node_t** node){
   if(node != NULL  && *node !=NULL){
     (*node)->next = NULL;
@@ -25,77 +34,131 @@ void dll_node_free(dll_node_t** node){
   }
 }
 
-//funcion para retornar el valor de un nodo
+/**
+ * @brief return the element of a node.
+ * 
+ * @param node 
+ * @return t_elem 
+ */
 t_elem dll_node_get_value(dll_node_t* node){
   if(node == NULL){
-    printf("dll_node pointer is NULL");
-    exit(-2);
+    printf("\ndll_node pointer is NULL(1)\n");
+    exit(EXIT_FAILURE);
   }
   return node->value;
 }
 
-//funcion para obtener el nodo anterior
+/**
+ * @brief setter for the element of a node. 
+ * 
+ * @param node 
+ * @param element 
+ */
+void dll_node_set_value(dll_node_t** node,t_elem element){
+  if(node == NULL){
+    printf("\ndll_node double pointer is NULL(1)\n");
+    return;
+  }
+  (*node)->value = element;
+}
+
+/**
+ * @brief getter for the prev of a node.
+ * 
+ * @param node 
+ * @return dll_node_t* 
+ */
 dll_node_t* dll_node_get_prev(dll_node_t* node){
   if(node == NULL){
-    printf("dll_node pointer is NULL");
-    exit(-3);
+    printf("\ndll_node pointer is NULL(2)\n");
+    exit(EXIT_FAILURE);
   }
   return node->prev;
 }
 
-//funcion para obtener el nodo siguiente
+/**
+ * @brief getter for the next of a node.
+ * 
+ * @param node 
+ * @return dll_node_t* 
+ */
 dll_node_t* dll_node_get_next(dll_node_t* node){
   if(node == NULL){
-    printf("dll_node pointer is NULL");
-    exit(-4);
+    printf("\ndll_node pointer is NULL(3)\n");
+    exit(EXIT_FAILURE);
   }
   return node->next;
 }
 
-//funcion para obtener la referencia del nodo anterior
+/**
+ * @brief get the reference of the prev of a node.
+ * 
+ * @param node 
+ * @return dll_node_t** 
+ */
 dll_node_t** dll_node_get_prev_reference(dll_node_t* node){
   if(node == NULL){
-    printf("dll_node pointer is NULL");
-    exit(-5);
+    printf("\ndll_node pointer is NULL(4)\n");
+    exit(EXIT_FAILURE);
   }
   return &node->prev;
 }
 
-//funcion para obtener la referencia del nodo siguiente
+/**
+ * @brief get the reference of the next of a node.
+ * 
+ * @param node 
+ * @return dll_node_t** 
+ */
 dll_node_t** dll_node_get_next_reference(dll_node_t* node){
-  if(node == NULL){
-    printf("dll_node pointer is NULL");
-    exit(-6);
+ if(node == NULL){
+    printf("\ndll_node pointer is NULL(5)\n");
+    exit(EXIT_FAILURE);
   }
   return &node->next;
 }
 
-//procedimiento para concatenar dos nodos.Retorna 1 si se conectaron, 0 en caso contrario(*origin == NULL)
-int dll_node_link_node(dll_node_t** origin,dll_node_t** destiny){
+/**
+ * @brief link two nodes. Return true if there were linked and false if *origin is NULL.
+ * 
+ * @param origin 
+ * @param destiny 
+ * @return bool 
+ */
+bool dll_node_link_node(dll_node_t** origin,dll_node_t** destiny){
   if(origin == NULL){
-    printf("dll_node pointer origin is NULL");
-    exit(-7);
+    printf("\ndll_node pointer origin is NULL\n");
+    exit(EXIT_FAILURE);
   }
   if(destiny == NULL){
-    printf("dll_node pointer destiny is NULL");
-    exit(-8);
+    printf("\ndll_node pointer destiny is NULL\n");
+    exit(EXIT_FAILURE);
   }
-  int returned = 0;
+  bool returned = false;
   if(*origin != NULL){
     (*origin)->next = *destiny;
     if(*destiny != NULL){
       (*destiny)->prev = *origin;
     }
-    returned = 1;
+    returned = true;
   }
   return returned;
 }
 
-//pricedimiento para añadir un nodo al final de una lista
+/**
+ * @brief add a node at end of a list of double linked nodes.
+ * 
+ * @param head 
+ * @param new_node 
+ */
 void dll_node_add_node_end(dll_node_t** head,dll_node_t** new_node){
-  if(head==NULL){
-    printf("dll_node double pointer is null");
-    exit(-9);
+  if(head == NULL){
+    printf("\ndll_node double pointer is NULL(2)\n");
+    return;
+  }
+  if(new_node == NULL){
+    printf("\ndll_node double pointer new_node is NULL\n");  
+    return;
   }
   if(*head == NULL){
     *head = *new_node;
@@ -113,21 +176,32 @@ void dll_node_add_node_end(dll_node_t** head,dll_node_t** new_node){
   }
 }
 
-//pricedimiento para añadir un valor al final de una lista
+
+/**
+ * @brief add a element to the end of a list of doubly linked nodes.
+ * 
+ * @param head 
+ * @param value 
+ */
 void dll_node_add_value_end(dll_node_t** head,t_elem value){
-  if(head==NULL){
-    printf("dll_node double pinter is null");
-    exit(-10);
+  if(head == NULL){
+    printf("\ndll_node double pointer is NULL(3)\n");
+    return;
   }
   dll_node_t* new_node = dll_node_new(value);
   dll_node_add_node_end(head,&new_node);
 }
 
-//pricedimiento para añadir un nodo al inicio de la lista
+/**
+ * @brief add a node to at begin of a list of doubly linked nodes.
+ * 
+ * @param head 
+ * @param new_node 
+ */
 void dll_node_add_node_first(dll_node_t** head,dll_node_t* new_node){
-  if(head==NULL){
-    printf("dll_node double pointer is null");
-    exit(-11);
+  if(head == NULL){
+    printf("\ndll_node double pointer is NULL(4)\n");
+    return;
   }
   dll_node_t* auxiliar = *head;
   if(*head != NULL){
@@ -137,21 +211,34 @@ void dll_node_add_node_first(dll_node_t** head,dll_node_t* new_node){
   new_node->next = auxiliar;
 }
 
-//pricedimiento para añadir un valor al inicio de la lista
+/**
+ * @brief add a element at the end of a list of doubly linked nodes.
+ * 
+ * @param head 
+ * @param value 
+ */
 void dll_node_add_value_first(dll_node_t** head,t_elem value){
-  if(head==NULL){
-    printf("dll_node double pointer is null");
-    exit(-12);
+  if(head == NULL){
+    printf("\ndll_node double pointer is NULL(5)\n");
+    return;
   }
   dll_node_t* new_node = dll_node_new(value);
   dll_node_add_node_first(head,new_node);
 }
 
-// busqueda de un valor en una lista. Retorna NULL en caso de no encontrarse.
+/**
+ * @brief search a element in a list of doubly linked nodes.Return the reference of
+ * the node that contains the value if exist.
+ * 
+ * @param head 
+ * @param value 
+ * @param compare 
+ * @return dll_node_t** 
+ */
 dll_node_t** dll_node_search(dll_node_t** head,t_elem value,int (*compare)(t_elem,t_elem)){
   if(head == NULL){
-    printf("dll_node double pointer is null");
-    exit(-13);
+    printf("\ndll_node double pointer is NULL(6)\n");
+    exit(EXIT_FAILURE);
   }
   dll_node_t** returned = NULL;
   if(*head != NULL  && compare((*head)->value,value)!=0){
@@ -166,11 +253,19 @@ dll_node_t** dll_node_search(dll_node_t** head,t_elem value,int (*compare)(t_ele
   return returned;
 }
 
-//remover un valor de la lista
+/**
+ * @brief remove a element of a list of doubly linked nodes.Return the node
+ * that contains the element if exist.
+ * 
+ * @param head 
+ * @param value 
+ * @param compare 
+ * @return dll_node_t* 
+ */
 dll_node_t* dll_node_remove(dll_node_t** head,t_elem value,int (*compare)(t_elem,t_elem)){
   if(head == NULL){
-    printf("dll_node double pointer is NULL");
-    exit(-14);
+    printf("\ndll_node double pointer is NULL(7)\n");
+    exit(EXIT_FAILURE);
   }
   dll_node_t** reference = dll_node_search(head,value,compare);
   dll_node_t* returned = NULL;
@@ -190,19 +285,35 @@ dll_node_t* dll_node_remove(dll_node_t** head,t_elem value,int (*compare)(t_elem
   return returned;
 }
 
-//imprime por pantalla el valor de un nodo
+/**
+ * @brief print the element of a node.
+ * 
+ * @param node 
+ * @param print 
+ */
 void dll_node_printf(dll_node_t* node,void (*print)(t_elem)){
   if(node == NULL){
-    printf("dll_node pointer is NULL\n");
-    exit(-15);
+    printf("dll_node pointer is NULL(6)\n");
+    return;
   }
   print(node->value);
 }
 
-//imprime por pantalla todos los nodos de una lista
+/**
+ * @brief print a list of doubly linked nodes.
+ * 
+ * @param head 
+ * @param print 
+ */
 void dll_node_printf_all(dll_node_t* head,void (*print)(t_elem)){
-  if(head != NULL){
+  if(head == NULL){
+    printf("\ndll_node pointer is NULL");
+    return;
+  }
+  else{
     print(head->value);
-    dll_node_printf_all(head->next,print);
+    if(head->next != NULL){
+      dll_node_printf_all(head->next,print);
+    }
   }
 }
