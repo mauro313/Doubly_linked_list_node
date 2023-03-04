@@ -178,7 +178,7 @@ void dll_node_add_node_end(dll_node_t** head,dll_node_t** new_node){
 
 
 /**
- * @brief add a element to the end of a list of doubly linked nodes.
+ * @brief add an element at the end of a list of doubly linked nodes.
  * 
  * @param head 
  * @param value 
@@ -193,7 +193,7 @@ void dll_node_add_value_end(dll_node_t** head,t_elem value){
 }
 
 /**
- * @brief add a node to at begin of a list of doubly linked nodes.
+ * @brief add a node at begin of a list of doubly linked nodes.
  * 
  * @param head 
  * @param new_node 
@@ -212,7 +212,7 @@ void dll_node_add_node_first(dll_node_t** head,dll_node_t* new_node){
 }
 
 /**
- * @brief add a element at the end of a list of doubly linked nodes.
+ * @brief add an element at the end of a list of doubly linked nodes.
  * 
  * @param head 
  * @param value 
@@ -227,7 +227,7 @@ void dll_node_add_value_first(dll_node_t** head,t_elem value){
 }
 
 /**
- * @brief search a element in a list of doubly linked nodes.Return the reference of
+ * @brief search an element in a list of doubly linked nodes.Return the reference of
  * the node that contains the value if exist.
  * 
  * @param head 
@@ -254,7 +254,7 @@ dll_node_t** dll_node_search(dll_node_t** head,t_elem value,int (*compare)(t_ele
 }
 
 /**
- * @brief remove a element of a list of doubly linked nodes.Return the node
+ * @brief remove an element of a list of doubly linked nodes.Return the node
  * that contains the element if exist.
  * 
  * @param head 
